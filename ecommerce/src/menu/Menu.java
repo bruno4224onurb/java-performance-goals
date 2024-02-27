@@ -4,15 +4,20 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import controller.Controller;
+import model.ProdutoNotebook;
+import model.ProdutoSmartphone;
 import util.Colors;
 
 public class Menu {
 	public static void main(String[] args) {
 
+		Controller produtos = new Controller();
+
 		Scanner input = new Scanner(System.in);
 
-		int opcao, tipo, porte, memoria, ID;
-		String nome = null;
+		int opcao, tipo = 0, porte, memoria, ID;
+		String nome = "", tipoAux = null;
 
 		while (true) {
 
@@ -28,7 +33,8 @@ public class Menu {
 					+ "\n            3 - Atualizar produto                    "
 					+ "\n            4 - Listar todos os produtos             "
 					+ "\n            5 - Buscar produto por ID                "
-					+ "\n            6 - Sair                                 "
+					+ "\n            6 - Buscar produto por nome              "
+					+ "\n            7 - Sair                                 "
 					+ "\n                                                     "
 					+ "\n+++++++++++++++++++++++++++++++++++++++++++++++++++++"
 					+ "\nEntre com a opção desejada:                          "
@@ -40,7 +46,7 @@ public class Menu {
 				input.nextLine();
 				opcao = 0;
 			}
-			if (opcao == 6) {
+			if (opcao == 7) {
 				System.out.println(
 						Colors.TEXT_BLUE + Colors.ANSI_BLACK_BACKGROUND + "\nBruno Tech Store, inovação e tecnologia!");
 				sobre();
@@ -51,34 +57,40 @@ public class Menu {
 			switch (opcao) {
 
 			case 1 -> {
-				System.out.println(Colors.TEXT_WHITE + "Cadastrar produto: \n\n");
-				keyPress();
+				System.out.println(Colors.TEXT_WHITE + "Cadastrar produto: \n");
 
 				do {
 					try {
-						System.out.println(
-								"\nQual o tipo de produto?\nPara Smartphones digite 1.\nPara Notebooks digite 2.\n");
-						tipo = input.nextInt();
-						if (1 > tipo || 2 < tipo) {
-							System.out.println("Opção Inválida! Tente novamente...");
-							tipo = 0;
-						}
-					} catch (InputMismatchException e) {
-						System.out.println("Favor digitar um número inteiro de 1 a 2!");
+						System.out.println("Qual o nome do produto?");
 						input.nextLine();
-						tipo = 0;
-					}
-				} while (1 > tipo || 2 < tipo);
-
-				do {
-					try {
-						System.out.println("\nQual o nome do produto?");
-						nome = input.next();
+						nome = input.nextLine();
 					} catch (InputMismatchException e) {
 						System.out.println("Favor digitar um nome válido!");
 						input.nextLine();
 					}
-				} while (nome.isEmpty());
+				} while (nome.equals(""));
+
+				do {
+					try {
+						System.out.println(
+								"\nQual o tipo de produto?\nPara Smartphones digite S.\nPara Notebooks digite N.\n");
+						tipoAux = input.next();
+						if (tipoAux.equalsIgnoreCase("S") == false && tipoAux.equalsIgnoreCase("N") == false) {
+							System.out.println("Opção Inválida! Tente novamente...");
+							tipo = 0;
+						} else {
+							if (tipoAux.equalsIgnoreCase("S")) {
+								tipo = 1;
+							} else if (tipoAux.equalsIgnoreCase("N")) {
+								tipo = 2;
+							}
+						}
+					} catch (InputMismatchException e) {
+						System.out.println("Favor digitar S ou N!");
+						input.nextLine();
+						tipo = 0;
+					}
+				} while (tipoAux.equalsIgnoreCase("S") == false && tipoAux.equalsIgnoreCase("N") == false);
 
 				switch (tipo) {
 
@@ -93,6 +105,7 @@ public class Menu {
 							porte = 0;
 						}
 					} while (1 > porte || 2 < porte);
+					produtos.cadastrar(new ProdutoSmartphone(produtos.gerarNumero(), nome, tipo, porte));
 				}
 
 				case 2 -> {
@@ -106,6 +119,7 @@ public class Menu {
 							memoria = 0;
 						}
 					} while (1 > memoria || 2 < memoria);
+					produtos.cadastrar(new ProdutoNotebook(produtos.gerarNumero(), nome, tipo, memoria));
 				}
 
 				}
@@ -119,6 +133,7 @@ public class Menu {
 
 				System.out.println("Digite o ID do produto:\n");
 				ID = input.nextInt();
+				produtos.deletar(ID);
 
 				keyPress();
 			}
@@ -132,29 +147,36 @@ public class Menu {
 
 				do {
 					try {
-						System.out.println(
-								"\nQual o tipo de produto?\nPara Smartphones digite 1.\nPara Notebooks digite 2.\n");
-						tipo = input.nextInt();
-						if (1 > tipo || 2 < tipo) {
-							System.out.println("Opção Inválida! Tente novamente...");
-							tipo = 0;
-						}
-					} catch (InputMismatchException e) {
-						System.out.println("Favor digitar um número inteiro de 1 a 2!");
+						System.out.println("Qual o nome do produto?");
 						input.nextLine();
-						tipo = 0;
-					}
-				} while (1 > tipo || 2 < tipo);
-
-				do {
-					try {
-						System.out.println("\nQual o nome do produto?");
-						nome = input.next();
+						nome = input.nextLine();
 					} catch (InputMismatchException e) {
 						System.out.println("Favor digitar um nome válido!");
 						input.nextLine();
 					}
-				} while (nome.isEmpty());
+				} while (nome.equals(""));
+
+				do {
+					try {
+						System.out.println(
+								"\nQual o tipo de produto?\nPara Smartphones digite S.\nPara Notebooks digite N.\n");
+						tipoAux = input.next();
+						if (tipoAux.equalsIgnoreCase("S") == false && tipoAux.equalsIgnoreCase("N") == false) {
+							System.out.println("Opção Inválida! Tente novamente...");
+							tipo = 0;
+						} else {
+							if (tipoAux.equalsIgnoreCase("S")) {
+								tipo = 1;
+							} else if (tipoAux.equalsIgnoreCase("N")) {
+								tipo = 2;
+							}
+						}
+					} catch (InputMismatchException e) {
+						System.out.println("Favor digitar S ou N!");
+						input.nextLine();
+						tipo = 0;
+					}
+				} while (tipoAux.equalsIgnoreCase("S") == false && tipoAux.equalsIgnoreCase("N") == false);
 
 				switch (tipo) {
 
@@ -169,6 +191,7 @@ public class Menu {
 							porte = 0;
 						}
 					} while (1 > porte || 2 < porte);
+					produtos.atualizar(new ProdutoSmartphone(ID, nome, tipo, porte));
 				}
 
 				case 2 -> {
@@ -182,6 +205,7 @@ public class Menu {
 							memoria = 0;
 						}
 					} while (1 > memoria || 2 < memoria);
+					produtos.atualizar(new ProdutoNotebook(ID, nome, tipo, memoria));
 				}
 
 				default -> {
@@ -195,6 +219,9 @@ public class Menu {
 
 			case 4 -> {
 				System.out.println(Colors.TEXT_WHITE + "Listar todos os produtos: \n\n");
+
+				produtos.listarTodos();
+
 				keyPress();
 			}
 
@@ -212,7 +239,25 @@ public class Menu {
 						ID = -1;
 					}
 				} while (ID < 0);
+				produtos.procurarPorID(ID);
+				keyPress();
+			}
+			
+			case 6 -> {
+				System.out.println(Colors.TEXT_WHITE + "Buscar produto por nome: \n\n");
+				keyPress();
+				input.nextLine();
 
+				do {
+					try {
+						System.out.println("Qual o nome do produto?");
+						nome = input.nextLine();
+					} catch (InputMismatchException e) {
+						System.out.println("Favor digitar um nome válido!");
+						input.nextLine();
+					}
+				} while (nome.equals(""));
+				produtos.procurarPorNome(nome);
 				keyPress();
 			}
 
