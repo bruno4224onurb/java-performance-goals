@@ -5,6 +5,8 @@ import model.Produto;
 public interface Repository {
 
 	public void procurarPorID(int ID);
+	
+	public void procurarPorNome(String nome);
 
 	public void listarTodos();
 

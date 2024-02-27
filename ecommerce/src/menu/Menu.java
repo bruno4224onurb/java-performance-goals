@@ -33,7 +33,8 @@ public class Menu {
 					+ "\n            3 - Atualizar produto                    "
 					+ "\n            4 - Listar todos os produtos             "
 					+ "\n            5 - Buscar produto por ID                "
-					+ "\n            6 - Sair                                 "
+					+ "\n            6 - Buscar produto por nome              "
+					+ "\n            7 - Sair                                 "
 					+ "\n                                                     "
 					+ "\n+++++++++++++++++++++++++++++++++++++++++++++++++++++"
 					+ "\nEntre com a opção desejada:                          "
@@ -45,7 +46,7 @@ public class Menu {
 				input.nextLine();
 				opcao = 0;
 			}
-			if (opcao == 6) {
+			if (opcao == 7) {
 				System.out.println(
 						Colors.TEXT_BLUE + Colors.ANSI_BLACK_BACKGROUND + "\nBruno Tech Store, inovação e tecnologia!");
 				sobre();
@@ -239,6 +240,24 @@ public class Menu {
 					}
 				} while (ID < 0);
 				produtos.procurarPorID(ID);
+				keyPress();
+			}
+			
+			case 6 -> {
+				System.out.println(Colors.TEXT_WHITE + "Buscar produto por nome: \n\n");
+				keyPress();
+				input.nextLine();
+
+				do {
+					try {
+						System.out.println("Qual o nome do produto?");
+						nome = input.nextLine();
+					} catch (InputMismatchException e) {
+						System.out.println("Favor digitar um nome válido!");
+						input.nextLine();
+					}
+				} while (nome.equals(""));
+				produtos.procurarPorNome(nome);
 				keyPress();
 			}
 

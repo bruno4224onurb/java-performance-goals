@@ -18,6 +18,16 @@ public class Controller implements Repository {
 
 		return null;
 	}
+	
+	public Produto buscarNomeNaArray(String nome) {
+		for (var produto : listaProdutos) {
+			if (produto.getNome().equalsIgnoreCase(nome)) {
+				return produto;
+			}
+		}
+
+		return null;
+	}
 
 	public void procurarPorID(int ID) {
 		var produto = buscarNaArray(ID);
@@ -68,11 +78,24 @@ public class Controller implements Repository {
 		}
 
 	}
+	
 
 	int numero = 0;
 
 	public int gerarNumero() {
 		return ++numero;
+	}
+
+	@Override
+	public void procurarPorNome(String nome) {
+		
+		var produto = buscarNomeNaArray(nome);
+
+		if (produto != null)
+			produto.visualizar();
+		else
+			System.out.println("\nO produto de ID " + nome + " não existe na nossa base de dados!");
+		
 	}
 
 }
