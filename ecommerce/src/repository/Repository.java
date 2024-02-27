@@ -3,15 +3,15 @@ package repository;
 import model.Produto;
 
 public interface Repository {
-	
-		public void procurarPorID(int ID);
 
-		public void listarTodas();
+	public void procurarPorID(int ID);
 
-		public void cadastrar(Produto produto);
+	public void listarTodos();
 
-		public void atualizar(Produto produto);
+	public void cadastrar(Produto produto);
 
-		public void deletar(int ID);
+	public void atualizar(Produto produto);
+
+	public void deletar(int ID);
 
 }

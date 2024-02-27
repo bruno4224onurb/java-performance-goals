@@ -5,8 +5,8 @@ public class ProdutoNotebook extends Produto {
 	private int memoria;
 	public String memoriaSt;
 
-	public ProdutoNotebook(int ID, int tipo, int memoria) {
-		super(ID, tipo);
+	public ProdutoNotebook(int ID, String nome, int tipo, int memoria) {
+		super(ID, nome, tipo);
 		this.setMemoria(memoria);
 	}
 
@@ -17,7 +17,7 @@ public class ProdutoNotebook extends Produto {
 	public void setMemoria(int memoria) {
 		this.memoria = memoria;
 	}
-	
+
 	@Override
 	public void visualizar() {
 		super.visualizar();
@@ -29,7 +29,7 @@ public class ProdutoNotebook extends Produto {
 			this.memoriaSt = "DDR5";
 			break;
 		}
-		System.out.println("\nTipo de memória: " + this.memoriaSt);
+		System.out.println("Tipo de memória: " + this.memoriaSt);
 
 	}
 

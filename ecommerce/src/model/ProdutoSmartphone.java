@@ -5,8 +5,8 @@ public class ProdutoSmartphone extends Produto {
 	private int porte;
 	public String porteSt;
 
-	public ProdutoSmartphone(int ID, int tipo, int porte) {
-		super(ID, tipo);
+	public ProdutoSmartphone(int ID, String nome, int tipo, int porte) {
+		super(ID, nome, tipo);
 		this.setPorte(porte);
 	}
 
@@ -21,7 +21,7 @@ public class ProdutoSmartphone extends Produto {
 			this.porteSt = "5G";
 			break;
 		}
-		System.out.println("\nPorte de internet: " + this.porteSt);
+		System.out.println("Porte de internet: " + this.porteSt);
 
 	}
 
